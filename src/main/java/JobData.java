@@ -90,18 +90,34 @@ public class JobData {
      * @return      List of all jobs with at least one field containing the value
      */
     public static ArrayList<HashMap<String, String>> findByValue(String value) {
-
         // load data, if not already loaded
         loadData();
 
-        // TODO - implement this method
-        return null;
+        ArrayList<HashMap<String, String>> matchingJobs = new ArrayList<>();
+           for(HashMap<String, String> row : allJobs) {
+               // Iterate over values in each row
+               for (String column : row.keySet()) {
+                   String columnValue = row.get(column);
+                   // Check if the column value contains the search term (case-insensitive)
+                   if (columnValue != null && columnValue.toLowerCase().contains(value.toLowerCase())) {
+                       // Add the job to the result if not already present
+                       if (!matchingJobs.contains(row)) {
+                           matchingJobs.add(row);
+                       }
+                       // Break the inner loop once a match is found in the current row
+                       break;
+                   }
+               }
+           }        //TODO - implement this method
+                  // return null;
+                return matchingJobs;
     }
+
 
     /**
      * Read in data from a CSV file and store it in a list
      */
-    private static void loadData() {
+    public static void loadData() {
 
         // Only load data once
         if (isDataLoaded) {
