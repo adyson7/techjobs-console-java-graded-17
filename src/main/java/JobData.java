@@ -104,7 +104,6 @@ public class JobData {
                     // Add the job to the result if not already present
                     if (!matchingJobs.contains(row)) {
                         matchingJobs.add(row);
-
                     }
                 }
             }
