@@ -75,7 +75,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue != null && aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -94,24 +94,24 @@ public class JobData {
         loadData();
 
         ArrayList<HashMap<String, String>> matchingJobs = new ArrayList<>();
-           for(HashMap<String, String> row : allJobs) {
-               // Iterate over values in each row
-               for (String column : row.keySet()) {
-                   String columnValue = row.get(column);
-                   // Check if the column value contains the search term (case-insensitive)
-                   if (columnValue != null && columnValue.toLowerCase().contains(value.toLowerCase())) {
-                       // Add the job to the result if not already present
-                       if (!matchingJobs.contains(row)) {
-                           matchingJobs.add(row);
-                       }
-                       // Break the inner loop once a match is found in the current row
-                       break;
-                   }
-               }
-           }        //TODO - implement this method
-                  // return null;
-                return matchingJobs;
+
+        for (HashMap<String, String> row : allJobs) {
+            // Iterate over values in each row
+            for (String column : row.keySet()) {
+                String columnValue = row.get(column);
+                // Check if the column value contains the search term (case-insensitive)
+                if (columnValue != null && columnValue.toLowerCase().contains(value.toLowerCase())) {
+                    // Add the job to the result if not already present
+                    if (!matchingJobs.contains(row)) {
+                        matchingJobs.add(row);
+                    }
+                }
+            }
+        }
+
+        return matchingJobs;
     }
+
 
 
     /**
